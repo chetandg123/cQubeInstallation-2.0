@@ -52,7 +52,7 @@ sudo git checkout $git_branch
 
 sudo ./install.sh | tee "$actual_output_file"
 
-echo "${txtblue}Test Case:1********Checking the error message without copying config.yml testing is started****************""${txtrst}" >> "$test_result_file
+echo "${txtblue}Test Case:1********Checking the error message without copying config.yml testing is started****************""${txtrst}" >> "$test_result_file"
 
 msg="ERROR: config.yml is not available. Please copy config.yml.template as config.yml and fill all the details."
 remove_whitespace "$msg"
@@ -68,6 +68,7 @@ echo "********Checking the error message without copying config.yml testing is c
 echo "${txtblue}Test Case:2********Checking error messages without filling config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 
 cp config.yml.template config.yml
+sudo ./install.sh
 sudo ./validate.sh | tee "$actual_output_file"
 
 msg="Error - in system_user_name. Unable to get the value. Please check."
