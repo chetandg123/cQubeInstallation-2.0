@@ -565,16 +565,16 @@ else
 fi
 echo "********Checking the nifi services testing is completed****************" >> "$test_result_file"
 
-echo "${txtblue}Test Case:26********Checking the angular services testing is started****************""${txtrst}" >> "$test_result_file"
-sudo netstat -ntlp | grep 3000 | tee "$services_output_file"
-output=$(grep -c "3000" $services_output_file)
-if [ $output = 1 ]
-then
-  echo "${txtgreen}angular services is running""${txtrst}" >> "$test_result_file"
-else
-  echo "${txtred}angular services is not running""${txtrst}" >> "$test_result_file"
-fi
-echo "********Checking the angular services testing is completed****************" >> "$test_result_file"
+#echo "${txtblue}Test Case:26********Checking the angular services testing is started****************""${txtrst}" >> "$test_result_file"
+#sudo netstat -ntlp | grep 3000 | tee "$services_output_file"
+#output=$(grep -c "3000" $services_output_file)
+#if [ $output = 1 ]
+#then
+#  echo "${txtgreen}angular services is running""${txtrst}" >> "$test_result_file"
+#else
+#  echo "${txtred}angular services is not running""${txtrst}" >> "$test_result_file"
+#fi
+#echo "********Checking the angular services testing is completed****************" >> "$test_result_file"
 
 
 

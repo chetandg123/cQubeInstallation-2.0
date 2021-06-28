@@ -19,39 +19,39 @@ git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles
 
 remove_config_file()
 {
-  rm "$remove_config_file"
+  sudo rm "$remove_config_file"
 }
 copy_new_config_file()
 {
-  cp $config_template $new_config_file
+  sudo cp $config_template $new_config_file
 }
 copy_filled_config_file()
 {
-  cp $filled_config_file $new_config_file
+  sudo cp $filled_config_file $new_config_file
 }
 copy_infrastructure_file()
 {
-  cp $source_to_copy_infra_structure_master $destination_to_copy_infra_structure_master
+  sudo cp $source_to_copy_infra_structure_master $destination_to_copy_infra_structure_master
 }
 remove_infrastructure_file()
 {
-  rm $destination_to_copy_infra_structure_master
+  sudo rm $destination_to_copy_infra_structure_master
 }
 copy_infra_parameter_file()
 {
-  cp $source_to_copy_infra_parameter_file $destination_to_copy_infra_parameter_file
+  sudo cp $source_to_copy_infra_parameter_file $destination_to_copy_infra_parameter_file
 }
 remove_infra_parameter_file()
 {
-  rm $destination_to_copy_infra_parameter_file
+  sudo rm $destination_to_copy_infra_parameter_file
 }
 copy_cQube_raw_data_fetch_parameters_file()
 {
-  cp $source_to_copy_cQube_raw_data_fetch_parameters_file $destination_to_copy_cQube_raw_data_fetch_parameters_file
+  sudo cp $source_to_copy_cQube_raw_data_fetch_parameters_file $destination_to_copy_cQube_raw_data_fetch_parameters_file
 }
 remove_cQube_raw_data_fetch_parameters_file()
 {
-  rm $destination_to_copy_cQube_raw_data_fetch_parameters_file
+  sudo rm $destination_to_copy_cQube_raw_data_fetch_parameters_file
 }
 remove_whitespace()
 {
@@ -75,23 +75,23 @@ txtrst=$(tput sgr0) # Text reset
 txtred=$(tput setaf 1) # Red
 txtgreen=$(tput setaf 10) #green
 txtblue=$(tput setaf 21) #blue
-git clone https://github.com/project-sunbird/cQube_Workflow.git
-cd cQube_Workflow/workflow_deploy/
+sudo git clone https://github.com/project-sunbird/cQube_Workflow.git
+cd cQube_Workflow/
 sudo git checkout $git_branch
-cp config.yml.template config.yml
+cd workflow_deploy/
+sudo cp config.yml.template config.yml
 remove_infrastructure_file
 copy_infrastructure_file
 remove_infra_parameter_file
 copy_infra_parameter_file
 remove_cQube_raw_data_fetch_parameters_file
 copy_cQube_raw_data_fetch_parameters_file
-
 echo "${txtblue}Test Case:1********Checking error messages without filling config.yml testing is started**********""${txtrst}" >> "$test_result_file"
-sed -i 's/base_dir: \/opt/base_dir:/g' "$config_file"
-sed -i 's/diksha_columns: false /diksha_columns:/g' "$config_file"
-sed -i 's/session_timeout: 7D /session_timeout:/g' "$config_file"
-sudo ./install.sh
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/base_dir: \/opt/base_dir:/g' "$config_file"
+sudo sed -i 's/diksha_columns: false /diksha_columns:/g' "$config_file"
+sudo sed -i 's/session_timeout: 7D /session_timeout:/g' "$config_file"
+printf 'yes\n' | sudo ./install.sh
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 
 msg="Error - Please enter the absolute path or make sure the directory is present."
 remove_whitespace "$msg"
@@ -104,12 +104,12 @@ else
 fi
 echo "********Checking error messages without filling config.yml testing is completed**********" >> "$test_result_file"
 
-echo "${txtblue}Test Case:2********Checking error messages without only filling the base_dir path in config.yml testing is started**********""${txtrst}" >> "$test_result_file"
+echo "${txtblue}Test Case:2********Checking error messages without filling the base_dir path in config.yml testing is started**********""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/diksha_columns: false /diksha_columns:/g' "$config_file"
-sed -i 's/session_timeout: 7D /session_timeout:/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/diksha_columns: false /diksha_columns:/g' "$config_file"
+sudo sed -i 's/session_timeout: 7D /session_timeout:/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 
 msg="Error - in state_code. Unable to get the value. Please check."
 remove_whitespace "$msg"
@@ -119,6 +119,16 @@ then
   echo "${txtgreen}state_code error message is displayed""${txtrst}" >> "$test_result_file"
 else
   echo "${txtred}state_code error message is not displayed""${txtrst}" >> "$test_result_file"
+fi
+
+msg="Error - in diksha_columns. Unable to get the value. Please check."
+remove_whitespace "$msg"
+check_error_messages $after_removal_of_space
+if [ $? = 1 ]
+then
+  echo "${txtgreen}diksha_columns error message is displayed""${txtrst}" >> "$test_result_file"
+else
+  echo "${txtred}diksha_columns error message is not displayed""${txtrst}" >> "$test_result_file"
 fi
 
 msg="Error - in static_datasource. Unable to get the value. Please check."
@@ -155,8 +165,8 @@ echo "********Checking error messages without only filling the base_dir path in 
 echo "${txtblue}Test Case:3********Checking state_code by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/state_code:/state_code: gujarath/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/state_code:/state_code: gujarath/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - Invalid State code. Please refer the state_list file and enter the correct value."
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -171,8 +181,8 @@ echo "********Checking state_code by passing invalid parameters testing is compl
 echo "${txtblue}Test Case:4********Checking diksha_columns by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/diksha_columns: false/diksha_columns: False/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/diksha_columns: false/diksha_columns: False/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - Please enter either true or false for diksha_columns"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -187,8 +197,8 @@ echo "********Checking diksha_columns by passing invalid parameters testing is c
 echo "${txtblue}Test Case:5********Checking static_datasource by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/static_datasource:/static_datasource: xyz/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/static_datasource:/static_datasource: xyz/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - Please enter either udise or state for static_datasource"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -204,8 +214,8 @@ echo "********Checking static_datasource by passing invalid parameters testing i
 echo "${txtblue}Test Case:6********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/session_timeout: 7D/session_timeout: 29M/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/session_timeout: 7D/session_timeout: 29M/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - Minutes should be between 30 and 5256000"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -220,8 +230,8 @@ echo "********Checking session_timeout by passing invalid parameters testing is 
 echo "${txtblue}Test Case:7********Checking session_timeout by passing invalid parameters testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_new_config_file
-sed -i 's/session_timeout: 7D/session_timeout: 3651D/g' "$config_file"
-sudo ./validate.sh | tee "$actual_output_file"
+sudo sed -i 's/session_timeout: 7D/session_timeout: 3651D/g' "$config_file"
+printf 'yes\n' | sudo ./validate.sh | tee "$actual_output_file"
 msg="Error - Days should be between 1 and 3650"
 remove_whitespace "$msg"
 check_error_messages $after_removal_of_space
@@ -236,7 +246,7 @@ echo "********Checking session_timeout by passing invalid parameters testing is 
 echo "${txtblue}Test Case:8********Filling the valid parameters in the config.yml file testing is started****************""${txtrst}" >> "$test_result_file"
 remove_config_file
 copy_filled_config_file
-sudo ./install.sh | tee "$actual_output_file"
+printf 'yes\n' | sudo ./install.sh | tee "$actual_output_file"
 output=$(grep -c "cQube Workflow installed successfully!!" $actual_output_file)
 if [ $output = 1 ]
 then
