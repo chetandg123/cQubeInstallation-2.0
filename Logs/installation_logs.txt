@@ -1,0 +1,8 @@
+● postgresql.service - PostgreSQL RDBMS
+   Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor preset: enabled)
+   Active: inactive (dead) since Tue 2021-04-20 13:05:31 IST; 2s ago
+ Main PID: 11897 (code=exited, status=0/SUCCESS)
+
+Apr 20 12:33:28 ip-172-31-28-227 systemd[1]: Starting PostgreSQL RDBMS...
+Apr 20 12:33:28 ip-172-31-28-227 systemd[1]: Started PostgreSQL RDBMS.
+Apr 20 13:05:31 ip-172-31-28-227 systemd[1]: Stopped PostgreSQL RDBMS.
