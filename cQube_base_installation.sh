@@ -1,12 +1,12 @@
 #!/bin/bash
 config_file="./config.yml"
 remove_config_file="./config.yml"
-actual_output_file="../../../Logs/installation_logs.txt"
-services_output_file="../../../Logs/services_logs.txt"
+actual_output_file="../Logs/installation_logs.txt"
+services_output_file="../Logs/services_logs.txt"
 config_template="./config.yml.template"
 new_config_file="./config.yml"
-filled_config_file="../../../ConfigFiles/Fill_base_installation_config_file.yml"
-test_result_file="../../../TestResult/installation_status_file.txt"
+filled_config_file="../ConfigFiles/Fill_base_installation_config_file.yml"
+test_result_file="../TestResult/installation_status_file.txt"
 s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_installation_testing_config.yml)
 s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_installation_testing_config.yml)
 git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_installation_testing_config.yml)
