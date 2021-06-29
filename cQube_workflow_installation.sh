@@ -5,7 +5,7 @@ actual_output_file="../../Logs/installation_logs.txt"
 services_output_file="../../Logs/services_logs.txt"
 config_template="./config.yml.template"
 new_config_file="./config.yml"
-filled_config_file="../../ConfigFiles/Fill_base_workflow_installation_config_file.yml"
+filled_config_file="../../ConfigFiles/Fill_workflow_installation_config_file.yml"
 source_to_copy_infra_structure_master="../../ConfigFiles/infrastructure_master.csv"
 destination_to_copy_infra_structure_master="../development/postgres/infrastructure_master.csv"
 source_to_copy_infra_parameter_file="../../ConfigFiles/infra_parameters.txt"
@@ -13,9 +13,9 @@ destination_to_copy_infra_parameter_file="../development/python/infra_parameters
 source_to_copy_cQube_raw_data_fetch_parameters_file="../../ConfigFiles/cQube-raw-data-fetch-parameters.txt"
 destination_to_copy_cQube_raw_data_fetch_parameters_file="../development/python/cQube-raw-data-fetch-parameters.txt"
 test_result_file="../../TestResult/installation_status_file.txt"
-s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_workflow_installation_testing_config.yml)
-s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_workflow_installation_testing_config.yml)
-git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/base_workflow_installation_testing_config.yml)
+s3_access_key=$(awk ''/^s3_access_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/workflow_installation_testing_config.yml)
+s3_secret_key=$(awk ''/^s3_secret_key:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/workflow_installation_testing_config.yml)
+git_branch=$(awk ''/^git_branch:' /{ if ($2 !~ /#.*/) {print $2}}' ./ConfigFiles/workflow_installation_testing_config.yml)
 
 remove_config_file()
 {
