@@ -13,7 +13,7 @@
 
 system_user_name:                         # Non-root username with sudo privileges. To find the username run `whoami` in the same server terminal.
 
-base_dir: /opt                            # provide the absolute path where cqube needs to be installed and served. Eg. /opt  ( in this case cqube will be installed under /opt/cqube)
+base_dir:                            # provide the absolute path where cqube needs to be installed and served. Eg. /opt  ( in this case cqube will be installed under /opt/cqube)
 
 #Database variables naming convention, the variable length should be between [3-63] characters and should contain upper/lower characters, it should start with _ or lower or upper characters.
 
